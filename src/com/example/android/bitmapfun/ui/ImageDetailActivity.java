@@ -17,20 +17,19 @@
 package com.example.android.bitmapfun.ui;
 
 import android.annotation.TargetApi;
-import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.WindowManager.LayoutParams;
 import android.widget.Toast;
 
 import com.example.android.bitmapfun.BuildConfig;
@@ -40,7 +39,7 @@ import com.example.android.bitmapfun.util.ImageCache;
 import com.example.android.bitmapfun.util.ImageFetcher;
 import com.example.android.bitmapfun.util.Utils;
 
-public class ImageDetailActivity extends FragmentActivity implements OnClickListener {
+public class ImageDetailActivity extends ActionBarActivity implements OnClickListener {
     private static final String IMAGE_CACHE_DIR = "images";
     public static final String EXTRA_IMAGE = "extra_image";
 
@@ -48,7 +47,7 @@ public class ImageDetailActivity extends FragmentActivity implements OnClickList
     private ImageFetcher mImageFetcher;
     private ViewPager mPager;
 
-    @TargetApi(11)
+    @TargetApi(14)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         if (BuildConfig.DEBUG) {
@@ -87,18 +86,14 @@ public class ImageDetailActivity extends FragmentActivity implements OnClickList
         mPager.setPageMargin((int) getResources().getDimension(R.dimen.image_detail_pager_margin));
         mPager.setOffscreenPageLimit(2);
 
-        // Set up activity to go full screen
-        getWindow().addFlags(LayoutParams.FLAG_FULLSCREEN);
+        final ActionBar actionBar = getSupportActionBar();
+        // Hide title text and set home as up
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         // Enable some additional newer visibility and ActionBar features to create a more
         // immersive photo viewing experience
         if (Utils.hasHoneycomb()) {
-            final ActionBar actionBar = getActionBar();
-
-            // Hide title text and set home as up
-            actionBar.setDisplayShowTitleEnabled(false);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-
             // Hide and show the ActionBar as the visibility changes
             mPager.setOnSystemUiVisibilityChangeListener(
                     new View.OnSystemUiVisibilityChangeListener() {
@@ -199,7 +194,7 @@ public class ImageDetailActivity extends FragmentActivity implements OnClickList
      * Set on the ImageView in the ViewPager children fragments, to enable/disable low profile mode
      * when the ImageView is touched.
      */
-    @TargetApi(11)
+    @TargetApi(14)
     @Override
     public void onClick(View v) {
         final int vis = mPager.getSystemUiVisibility();

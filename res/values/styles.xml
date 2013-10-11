@@ -15,15 +15,27 @@
   limitations under the License.
 -->
 
-<resources>
+<resources
+    xmlns:tools="http://schemas.android.com/tools" >
 
-    <style name="AppTheme" parent="android:Theme" />
-
-    <style name="AppTheme.FullScreen" parent="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+    <style name="AppTheme" parent="@style/Theme.AppCompat"
+        tools:ignore="NewApi" >
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowBackground">@android:color/black</item>
+        <item name="android:actionBarStyle">@style/TranslucentDarkActionBar</item>
+        <!-- Support library compatibility -->
+        <item name="windowActionBarOverlay">true</item>
+        <item name="actionBarStyle">@style/TranslucentDarkActionBar</item>
+    </style>
 
     <style name="PhotoGridLayout">
         <item name="android:drawSelectorOnTop">true</item>
         <item name="android:listSelector">@drawable/photogrid_list_selector</item>
     </style>
 
+    <style name="TranslucentDarkActionBar" parent="@style/Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/actionbar_background</item>
+        <!-- Support library compatibility -->
+        <item name="background">@color/actionbar_background</item>
+    </style>
 </resources>

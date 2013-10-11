@@ -17,16 +17,17 @@
 package com.example.android.bitmapfun.ui;
 
 import com.example.android.bitmapfun.BuildConfig;
+import com.example.android.bitmapfun.R;
 import com.example.android.bitmapfun.util.Utils;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBarActivity;
 
 /**
  * Simple FragmentActivity to hold the main {@link ImageGridFragment} and not much else.
  */
-public class ImageGridActivity extends FragmentActivity {
+public class ImageGridActivity extends ActionBarActivity {
     private static final String TAG = "ImageGridActivity";
 
     @Override
@@ -35,10 +36,11 @@ public class ImageGridActivity extends FragmentActivity {
             Utils.enableStrictMode();
         }
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_container);
 
         if (getSupportFragmentManager().findFragmentByTag(TAG) == null) {
             final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.add(android.R.id.content, new ImageGridFragment(), TAG);
+            ft.add(R.id.fragment_container, new ImageGridFragment(), TAG);
             ft.commit();
         }
     }
